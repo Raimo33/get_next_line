@@ -6,13 +6,13 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/01 11:12:42 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:28:09 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char    *get_line(char *str)
+char	*get_single_line(char *str)
 {
 	char	*new_str;
 	int		i;
@@ -20,7 +20,7 @@ char    *get_line(char *str)
 	i = -1;
 	if (*str == '\0')
 		return (NULL);
-	new_str = malloc(sizeof(char) * (f_strlen(str) + 1 + (str[f_strlen(str) - 1] == '\n')));
+	new_str = malloc(f_slen(str) + 1 + (str[f_slen(str) - 1] == '\n'));
 	if (new_str == NULL)
 		return (NULL);
 	while (str[++i] != '\0' && str[i] != '\n')
@@ -40,10 +40,10 @@ char	*ft_strdup(const char *s)
 	int		i;
 
 	i = -1;
-	new_str = malloc(sizeof(char) * (f_strlen(s) + 1));
+	new_str = malloc(sizeof(char) * (f_slen(s) + 1));
 	if (new_str == NULL)
 		return (NULL);
-	while (++i < f_strlen(s))
+	while (++i < f_slen(s))
 		new_str[i] = s[i];
 	new_str[i] = '\0';
 	return (new_str);
@@ -57,8 +57,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	int		s1_len;
 	int		s2_len;
 
-	s1_len = f_strlen(s1);
-	s2_len = f_strlen(s2);
+	s1_len = f_slen(s1);
+	s2_len = f_slen(s2);
 	i = -1;
 	newstr = malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (newstr == NULL)
@@ -71,11 +71,10 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		newstr[n + i] = s2[i];
 	newstr[n + i] = '\0';
 	free((void *)s2);
-	//free((void *)s1);
 	return (newstr);
 }
 
-int	f_strlen(const char *c)
+int	f_slen(const char *c)
 {
 	int	n;
 
