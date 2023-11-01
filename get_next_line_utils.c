@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/01 11:54:39 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:09:15 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,20 @@ char	*get_single_line(char *str)
 	char	*new_str;
 	int		i;
 
-	i = -1;
+	i = 0;
 	if (*str == '\0')
 		return (NULL);
-	new_str = malloc(f_slen(str) + 1 + (str[f_slen(str) - 1] == '\n'));
+	new_str = malloc(f_slen(str) + (str[f_slen(str) - 1] == '\n'));
 	if (new_str == NULL)
 		return (NULL);
 	while (str[++i] != '\0' && str[i] != '\n')
-		new_str[i] = str[i];
+		new_str[i - 1] = str[i];
 	if (str[i] == '\n')
 	{
-		new_str[i] = str[i];
+		new_str[i - 1] = str[i];
 		i++;
 	}
-	new_str[i] = '\0';
-	return (new_str);
-}
-
-char	*ft_strdup(const char *s)
-{
-	char	*new_str;
-	int		i;
-
-	i = -1;
-	new_str = malloc(sizeof(char) * (f_slen(s) + 1));
-	if (new_str == NULL)
-		return (NULL);
-	while (++i < f_slen(s))
-		new_str[i] = s[i];
-	new_str[i] = '\0';
-	//free((void *)s);
+	new_str[i - 1] = '\0';
 	return (new_str);
 }
 
@@ -54,25 +38,25 @@ char	*f_strjoin(const char *s1, const char *s2)
 {
 	char	*newstr;
 	int		i;
-	int		n;
 	int		s1_len;
 	int		s2_len;
 
-	s1_len = f_slen(s1);
+	if (s1 != NULL && *s1 == 127)
+		s1++;
+	s1_len = f_slen(s1) + 1;
 	s2_len = f_slen(s2);
-	i = -1;
-	newstr = malloc(sizeof(char) * (s1_len + s2_len + 1));
+	i = 0;
+	newstr = malloc((s1_len + s2_len + 1));
 	if (newstr == NULL)
 		return (NULL);
+	newstr[0] = 127;
 	while (++i < s1_len)
-		newstr[i] = s1[i];
-	n = i;
+		newstr[i] = s1[i - 1];
 	i = -1;
 	while (++i < s2_len)
-		newstr[n + i] = s2[i];
-	newstr[n + i] = '\0';
+		newstr[s1_len + i] = s2[i];
+	newstr[s1_len + i] = '\0';
 	free((void *)s2);
-	free((void *)s1);
 	return (newstr);
 }
 
