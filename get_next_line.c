@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/01 11:53:33 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:54:45 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 	out = read(fd, str, BUFFER_SIZE);
 	if (out < 0)
 		return (NULL);
-	buf = ft_strjoin(ft_strdup(buf), str);
+	buf = f_strjoin(ft_strdup(buf), str);
 	ret = get_single_line(buf);
 	if (f_slen(ret) > 0 && (ret[f_slen(ret) - 1] == '\n' || out < BUFFER_SIZE))
 	{

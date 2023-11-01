@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/01 11:42:20 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:54:39 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_strdup(const char *s)
 	return (new_str);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*f_strjoin(const char *s1, const char *s2)
 {
 	char	*newstr;
 	int		i;
