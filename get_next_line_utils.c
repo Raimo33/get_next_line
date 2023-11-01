@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/01 11:28:09 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:42:20 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ char	*ft_strdup(const char *s)
 	while (++i < f_slen(s))
 		new_str[i] = s[i];
 	new_str[i] = '\0';
+	//free((void *)s);
 	return (new_str);
 }
 
@@ -71,6 +72,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		newstr[n + i] = s2[i];
 	newstr[n + i] = '\0';
 	free((void *)s2);
+	free((void *)s1);
 	return (newstr);
 }
 

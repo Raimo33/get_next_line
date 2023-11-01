@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/01 11:28:47 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:53:33 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 // #define BUFFER_SIZE 100
 
 #include "get_next_line.h"
-
-//static char	*free_everything(char *ptr);
 
 char	*get_next_line(int fd)
 {
@@ -26,7 +24,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0)
 		return (NULL);
-	str = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	str = ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!str)
 		return (NULL);
 	out = read(fd, str, BUFFER_SIZE);
@@ -42,27 +40,19 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-// static char	*free_everything(char *ptr)
-// {
-// 	while (*ptr != 127)
-// 		ptr--;
-// 	free(ptr);
-// 	return (NULL);
-// }
+#include <stdio.h>
+#include <fcntl.h>
 
-// #include <stdio.h>
-// #include <fcntl.h>
+int main(void)
+{
+    int fd = open("test.txt", O_RDONLY);
+	char *line = "start";
 
-// int main(void)
-// {
-//     int fd = open("test.txt", O_RDONLY);
-// 	char *line = "start";
-
-// 	for (int i = 0; i < 100; i++)
-// 	{
-// 		line = get_next_line(fd);
-// 		printf("%s", line);
-// 		free (line);
-// 	}
-//     return 0;
-// }
+	for (int i = 0; i < 100; i++)
+	{
+		line = get_next_line(fd);
+		printf("%s", line);
+		free (line);
+	}
+    return 0;
+}
