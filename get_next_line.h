@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: craimond <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:55 by craimond          #+#    #+#             */
-/*   Updated: 2023/10/31 22:27:56 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:07:54 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 
 char    *get_next_line(int fd);
 char	*ft_strjoin(const char *s1, const char *s2);
-void	*ft_memset(void *str, int c, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
 int		f_strlen(const char *c);
 char    *get_line(char *str);
+char	*ft_strdup(const char *s);
 
 #endif

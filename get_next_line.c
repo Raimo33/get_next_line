@@ -6,39 +6,40 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/10/31 23:33:29 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:14:58 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_utils.c"
+#define BUFFER_SIZE 100
+
+//#include "get_next_line.h"
 
 static char	*free_everything(char *ptr);
 
 char    *get_next_line(int fd)
 {
 	char 		*str;
-	char		*to_return;
+	char		*ret;
 	static char	*buf;
-	int			i;
+	int			out;
 
-	i = 0;
-	if (!buf)
-		buf = malloc(BUFFER_SIZE * 2 + 1);
-	str = malloc(BUFFER_SIZE + 1);
-	if (str == NULL)
+	if (fd < 0)
 		return (NULL);
-	read(fd, str, BUFFER_SIZE);
-	str[BUFFER_SIZE] = '\0';
-	buf = ft_strjoin(buf, str);
-	to_return = get_line(buf);
-	if (to_return[f_strlen(to_return) - 1] == '\n') //va in segfault sull'ultima linea perche' termina con \0 e non trova il \n
+	str = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	out = read(fd, str, BUFFER_SIZE);
+	if (out < 0)
+		return (NULL);
+	buf = ft_strjoin(ft_strdup(buf), str);
+	ret = get_line(buf);
+	if (f_strlen(ret) > 0 && ret[f_strlen(ret) - 1] == '\n' || out < BUFFER_SIZE)
 	{
-		while (*buf != '\n' && *buf != '\0')
-			buf++;
-		buf++;
-		return(to_return); //se to_return e' effettivamente una linea allora ritornala
+		buf += f_strlen(ret);
+		return(ret);
 	}
-	return (NULL); //altrimenti ritorna NULL perche' con la BUFFER_SIZE di queste dimensioni non e' stata trovata nessuna linea
+	return (NULL);
 }
 
 static char	*free_everything(char *ptr)
@@ -58,6 +59,10 @@ int main(void)
 	char *line = "start";
 
 	for (int i = 0; i < 100; i++)
-		printf("%s", get_next_line(fd));
+	{
+		line = get_next_line(fd);
+		printf("%s", line);
+		free (line);
+	}
     return 0;
 }

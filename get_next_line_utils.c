@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: craimond <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/10/31 22:27:38 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:12:42 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ char    *get_line(char *str)
 		new_str[i] = str[i];
 		i++;
 	}
+	new_str[i] = '\0';
+	return (new_str);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*new_str;
+	int		i;
+
+	i = -1;
+	new_str = malloc(sizeof(char) * (f_strlen(s) + 1));
+	if (new_str == NULL)
+		return (NULL);
+	while (++i < f_strlen(s))
+		new_str[i] = s[i];
 	new_str[i] = '\0';
 	return (new_str);
 }
@@ -70,4 +85,20 @@ int	f_strlen(const char *c)
 	while (c[n])
 		n++;
 	return (n);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*arr;
+	int		n;
+
+	if (nmemb != 0 && size > ULONG_MAX / nmemb)
+		return (NULL);
+	n = nmemb * size;
+	arr = (void *)malloc(n);
+	if (arr == NULL)
+		return (NULL);
+	while (n-- > 0)
+		((char *)arr)[n] = '\0';
+	return (arr);
 }
