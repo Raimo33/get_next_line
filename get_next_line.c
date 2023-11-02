@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/01 17:06:48 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/02 12:33:51 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,12 @@ char	*get_next_line(int fd)
 	free_previous(ptr);
 	ptr = buf;
 	ret = get_single_line(ptr);
-	if (f_slen(ret) > 0 && (ret[f_slen(ret) - 1] == '\n' || out < BUFFER_SIZE))
+	if (f_slen(ret) > 0 && (ret[f_slen(ret) - 1] == '\n' || out < BUFFER_SIZE)) //riducibile di 1 riga col trucchetto
 	{
-		ptr += f_slen(ret) + 1;
+		ptr += f_slen(ret) + (*buf == 127);
 		return (ret);
 	}
-	// if (f_slen(buf) == 1)
-	// 	free(buf);
+	free(ret);
 	return (NULL);
 }
 
@@ -52,7 +51,7 @@ static void	free_previous(char *ptr)
 	if (ptr == NULL)
 		return ;
 	while (*ptr != 127)
-		ptr--;
+		(ptr)--;
 	free(ptr);
 }
 
@@ -64,7 +63,7 @@ int main(void)
     int fd = open("test.txt", O_RDONLY);
 	char *line = "start";
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 27; i++)
 	{
 		line = get_next_line(fd);
 		printf("%s", line);
