@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/02 15:56:01 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:36:38 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*get_next_line(int fd)
 		if (out < 0) //riducibile col trucchetto
 		{
 			free(str);
+			//free(buf);
+			ptr = NULL;
 			return (NULL);
 		}
 		buf = f_strjoin(ptr, str);
@@ -44,7 +46,11 @@ char	*get_next_line(int fd)
 		}
 		free(ret);
 		if (out == 0)
+		{
+			free(buf);
+			ptr = NULL;
 			return (NULL);
+		}
 	}
 }
 

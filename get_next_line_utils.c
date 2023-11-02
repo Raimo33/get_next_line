@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/02 15:56:11 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:24:09 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_single_line(char *str)
 		return (NULL);
 	while (str[++i] != '\0' && str[i] != '\n')
 		new_str[i - 1] = str[i];
-	if (str[i] == '\n')
+	if (i <= f_slen(str) && str[i] == '\n')
 	{
 		new_str[i - 1] = str[i];
 		i++;
@@ -36,7 +36,7 @@ char	*get_single_line(char *str)
 	return (new_str);
 }
 
-char	*f_strjoin(const char *s1, const char *s2)
+char	*f_strjoin(char *s1, char *s2)
 {
 	char	*newstr;
 	int		i;
@@ -72,7 +72,7 @@ static void	free_previous(char *ptr)
 	free(ptr);
 }
 
-int	f_slen(const char *c)
+int	f_slen(char *c)
 {
 	int	n;
 
