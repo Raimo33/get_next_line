@@ -6,12 +6,12 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/02 15:15:16 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:56:01 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include "get_next_line_utils.c"
-// #define BUFFER_SIZE 1
+// #define BUFFER_SIZE 100
 
 #include "get_next_line.h"
 
@@ -23,25 +23,29 @@ char	*get_next_line(int fd)
 	static char	*ptr;
 	int			out;
 
-	str = ft_calloc(BUFFER_SIZE + 1, 1);
-	if (!str)
-		return (NULL);
-	out = read(fd, str, BUFFER_SIZE);
-	if (out < 0) //riducibile col trucchetto
+	while (1)//fermarsi all'ultima riga)
 	{
-		free(str);
-		return (NULL);
+		str = ft_calloc(BUFFER_SIZE + 1, 1);
+		if (!str)
+			return (NULL);
+		out = read(fd, str, BUFFER_SIZE);
+		if (out < 0) //riducibile col trucchetto
+		{
+			free(str);
+			return (NULL);
+		}
+		buf = f_strjoin(ptr, str);
+		ptr = buf;
+		ret = get_single_line(ptr);
+		if (f_slen(ret) > 0 && (ret[f_slen(ret) - 1] == '\n' || out < BUFFER_SIZE)) //riducibile col trucchetto
+		{
+			ptr += f_slen(ret) + (*buf == 127);
+			return (ret);
+		}
+		free(ret);
+		if (out == 0)
+			return (NULL);
 	}
-	buf = f_strjoin(ptr, str);
-	ptr = buf;
-	ret = get_single_line(ptr);
-	if (f_slen(ret) > 0 && (ret[f_slen(ret) - 1] == '\n' || out < BUFFER_SIZE)) //riducibile col trucchetto
-	{
-		ptr += f_slen(ret) + (*buf == 127);
-		return (ret);
-	}
-	free(ret);
-	return (NULL);
 }
 
 // #include <stdio.h>
@@ -49,10 +53,10 @@ char	*get_next_line(int fd)
 
 // int main(void)
 // {
-//     int fd = open("tests/42_no_nl", O_RDONLY);
+//     int fd = open("tests/empty.txt", O_RDONLY);
 // 	char *line = "start";
 
-// 	for (int i = 0; i < 100; i++)
+// 	for (int i = 0; i < 1; i++)
 // 	{
 // 		line = get_next_line(fd);
 // 		printf("%s", line);
