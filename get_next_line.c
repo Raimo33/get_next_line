@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/02 17:04:21 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:04:50 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,3 @@ static char	*free_and_null(char *to_free, char **to_null)
 	*to_null = NULL;
 	return (NULL);
 }
-
