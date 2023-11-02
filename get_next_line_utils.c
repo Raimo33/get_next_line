@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/02 16:24:09 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:49:00 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ char	*get_single_line(char *str)
 	i = 0;
 	if (*str == '\0')
 		return (NULL);
-	new_str = malloc(f_slen(str) + (str[f_slen(str) - 1] == '\n'));
+	new_str = malloc(f_sl(str) + (str[f_sl(str) - 1] == '\n'));
 	if (new_str == NULL)
 		return (NULL);
 	while (str[++i] != '\0' && str[i] != '\n')
 		new_str[i - 1] = str[i];
-	if (i <= f_slen(str) && str[i] == '\n')
+	if (i <= f_sl(str) && str[i] == '\n')
 	{
 		new_str[i - 1] = str[i];
 		i++;
@@ -45,8 +45,8 @@ char	*f_strjoin(char *s1, char *s2)
 
 	if (s1 != NULL && *s1 == 127)
 		s1++;
-	s1_len = f_slen(s1) + 1;
-	s2_len = f_slen(s2);
+	s1_len = f_sl(s1) + 1;
+	s2_len = f_sl(s2);
 	i = 0;
 	newstr = malloc((s1_len + s2_len + 1));
 	if (newstr == NULL)
@@ -72,7 +72,7 @@ static void	free_previous(char *ptr)
 	free(ptr);
 }
 
-int	f_slen(char *c)
+int	f_sl(char *c)
 {
 	int	n;
 
