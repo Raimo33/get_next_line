@@ -6,11 +6,13 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/02 11:58:51 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:10:14 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static void	free_previous(char *ptr);
 
 char	*get_single_line(char *str)
 {
@@ -57,7 +59,17 @@ char	*f_strjoin(const char *s1, const char *s2)
 		newstr[s1_len + i] = s2[i];
 	newstr[s1_len + i] = '\0';
 	free((void *)s2);
+	free_previous((char *)s1);
 	return (newstr);
+}
+
+static void	free_previous(char *ptr)
+{
+	if (ptr == NULL)
+		return ;
+	while (*ptr != 127)
+		(ptr)--;
+	free(ptr);
 }
 
 int	f_slen(const char *c)
