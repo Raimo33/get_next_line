@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:50:28 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 12:33:26 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:43:53 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static char	*free_and_null(char *to_free, char **to_null);
 static char	*get_nl(int fd, char **ptr);
 static t_fd_list	*f_lstiter(t_fd_list *lst, int fd);
-static t_fd_list	*ft_lstnew(int	fd);
+static t_fd_list	*f_lstnew(int	fd);
+static t_fd_list *f_lstadd_back(t_fd_list **lst, t_fd_list *new);
 
 char	*get_next_line(int fd)
 {
@@ -24,7 +25,7 @@ char	*get_next_line(int fd)
 
 	matching_node = f_lstiter(head, fd);
 	if (!matching_node)
-		matching_node = ft_lstnew(fd);
+		matching_node = f_lstadd_back(&head, f_lstnew(fd));
 	return (get_nl(matching_node->fd, &(matching_node->ptr)));
 }
 
@@ -39,7 +40,23 @@ static t_fd_list	*f_lstiter(t_fd_list *lst, int fd)
 	return (NULL);
 }
 
-static t_fd_list	*ft_lstnew(int fd)
+static t_fd_list *f_lstadd_back(t_fd_list **lst, t_fd_list *new)
+{
+	t_fd_list	*tmp;
+
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	tmp = *lst;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	tmp->next = new;
+	return (tmp->next);
+}
+
+static t_fd_list	*f_lstnew(int fd)
 {
 	t_fd_list	*new_node;
 
