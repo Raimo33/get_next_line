@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/02 16:49:00 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:44:56 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ char	*get_single_line(char *str)
 	int		i;
 
 	i = 0;
-	if (*str == '\0')
+	if (str == NULL || *str == '\0')
 		return (NULL);
 	new_str = malloc(f_sl(str) + (str[f_sl(str) - 1] == '\n'));
-	if (new_str == NULL)
+	if (!new_str)
 		return (NULL);
 	while (str[++i] != '\0' && str[i] != '\n')
 		new_str[i - 1] = str[i];
@@ -49,15 +49,15 @@ char	*f_strjoin(char *s1, char *s2)
 	s2_len = f_sl(s2);
 	i = 0;
 	newstr = malloc((s1_len + s2_len + 1));
-	if (newstr == NULL)
-		return (NULL);
-	newstr[0] = 127;
+	if (newstr != NULL)
+		newstr[0] = 127;
 	while (++i < s1_len)
 		newstr[i] = s1[i - 1];
 	i = -1;
 	while (++i < s2_len)
 		newstr[s1_len + i] = s2[i];
-	newstr[s1_len + i] = '\0';
+	if (newstr != NULL)
+		newstr[s1_len + i] = '\0';
 	free((void *)s2);
 	free_previous((char *)s1);
 	return (newstr);
@@ -65,9 +65,7 @@ char	*f_strjoin(char *s1, char *s2)
 
 static void	free_previous(char *ptr)
 {
-	if (ptr == NULL)
-		return ;
-	while (*ptr != 127)
+	while (ptr != NULL && *ptr != 127)
 		(ptr)--;
 	free(ptr);
 }
@@ -84,18 +82,16 @@ int	f_sl(char *c)
 	return (n);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*arr;
+	char	*arr;
 	int		n;
 
 	if (nmemb != 0 && size > ULONG_MAX / nmemb)
 		return (NULL);
 	n = nmemb * size;
-	arr = (void *)malloc(n);
-	if (arr == NULL)
-		return (NULL);
-	while (n-- > 0)
-		((char *)arr)[n] = '\0';
+	arr = malloc(n);
+	while (arr != NULL && n-- > 0)
+		arr[n] = '\0';
 	return (arr);
 }

@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/02 17:04:50 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 10:41:05 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*free_and_null(char *to_free, char **to_null);
 
 // 	for (int i = 0; i < 1; i++)
 // 	{
-// 		line = get_next_line(fd);
+// 		line = get_next_line(-4);
 // 		printf("%s", line);
 // 		free(line);
 // 	}
@@ -39,7 +39,8 @@ char	*get_next_line(int fd)
 	static char	*ptr;
 	int			out;
 
-	while (1)
+	out = 1;
+	while (out != 0 && out != -1)
 	{
 		str = ft_calloc(BUFFER_SIZE + 1, 1);
 		if (!str)
@@ -55,9 +56,8 @@ char	*get_next_line(int fd)
 			return (ret);
 		}
 		free(ret);
-		if (out <= 0)
-			return (free_and_null(buf, &ptr));
 	}
+	return (free_and_null(buf, &ptr));
 }
 
 static char	*free_and_null(char *to_free, char **to_null)
