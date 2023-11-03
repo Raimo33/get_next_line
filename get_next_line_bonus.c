@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:50:28 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 13:03:47 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:09:14 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char	*get_nl(int fd, char **ptr)
 	return (free_and_null(buf, &(*ptr)));
 }
 
-static t_fd_list *f_lstadd_back(t_fd_list **lst, t_fd_list *new)
+static t_fd_list	*f_lstadd_back(t_fd_list **lst, t_fd_list *new)
 {
 	t_fd_list	*tmp;
 

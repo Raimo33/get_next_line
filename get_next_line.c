@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 12:03:30 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:08:21 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ char	*get_next_line(int fd)
 			&& (ret[f_sl(ret) - 1] == '\n' || (out < BUFFER_SIZE && out >= 0)))
 		{
 			ptr += f_sl(ret) + (*buf == 127);
-			if (out < BUFFER_SIZE && f_sl(ptr) == 0) //serve per evitare il (possibly lost bytes) quando finisce il file e la memoria non viene liberata fino alla prosisma chiamata
-				free_and_null(buf, &ptr);			//eliminabile forse
 			return (ret);
 		}
 		free(ret);
