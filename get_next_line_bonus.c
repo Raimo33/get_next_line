@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:50:28 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 12:55:10 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:03:47 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ char	*get_next_line(int fd)
 	static t_fd_list	*head;
 	t_fd_list			*matching_node;
 
+	if (fd < 0 || fd > __FD_SETSIZE)
+		return (NULL);
 	matching_node = f_lstiter(head, fd);
 	if (!matching_node)
 		matching_node = f_lstadd_back(&head, f_lstnew(fd));
