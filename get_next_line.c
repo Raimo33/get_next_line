@@ -6,11 +6,14 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 10:41:05 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 11:01:51 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+// #include "get_next_line_utils.c"
+// # define BUFFER_SIZE 10
 
 static char	*free_and_null(char *to_free, char **to_null);
 
@@ -19,7 +22,7 @@ static char	*free_and_null(char *to_free, char **to_null);
 
 // int main(void)
 // {
-//     int fd = open("tests/empty.txt", O_RDONLY);
+//     int fd = open("tests/1char.txt", O_RDONLY);
 // 	char *line = "start";
 
 // 	for (int i = 0; i < 1; i++)
@@ -39,7 +42,7 @@ char	*get_next_line(int fd)
 	static char	*ptr;
 	int			out;
 
-	out = 1;
+	out = 1 - (fd < 0 && fd > __FD_SETSIZE);
 	while (out != 0 && out != -1)
 	{
 		str = ft_calloc(BUFFER_SIZE + 1, 1);
