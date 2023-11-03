@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 11:01:51 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 11:45:40 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static char	*free_and_null(char *to_free, char **to_null);
 
 // int main(void)
 // {
-//     int fd = open("tests/1char.txt", O_RDONLY);
+//     int fd = open("1char.txt", O_RDONLY);
 // 	char *line = "start";
 
-// 	for (int i = 0; i < 1; i++)
+// 	for (int i = 0; i < 6; i++)
 // 	{
-// 		line = get_next_line(-4);
+// 		line = get_next_line(fd);
 // 		printf("%s", line);
 // 		free(line);
 // 	}
@@ -42,7 +42,7 @@ char	*get_next_line(int fd)
 	static char	*ptr;
 	int			out;
 
-	out = 1 - (fd < 0 && fd > __FD_SETSIZE);
+	out = 1;
 	while (out != 0 && out != -1)
 	{
 		str = ft_calloc(BUFFER_SIZE + 1, 1);
@@ -56,6 +56,8 @@ char	*get_next_line(int fd)
 			&& (ret[f_sl(ret) - 1] == '\n' || (out < BUFFER_SIZE && out >= 0)))
 		{
 			ptr += f_sl(ret) + (*buf == 127);
+			if (out < BUFFER_SIZE && f_sl(ptr) == 0) //serve per evitare il (possibly lost bytes) quando finisce il file e la memoria non viene liberata fino alla prosisma chiamata
+				free_and_null(buf, &ptr);			//eliminabile forse
 			return (ret);
 		}
 		free(ret);
