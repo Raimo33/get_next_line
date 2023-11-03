@@ -6,56 +6,11 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:50:28 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 15:58:06 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:31:39 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "get_next_line_utils_bonus.c"
-
 #include "get_next_line_bonus.h"
-
-// #include <stdio.h>
-// #include <fcntl.h>
-
-// int main(void)
-// {
-//     int fd = open("1char", O_RDONLY);
-// 	int fd2 = open("2char", O_RDONLY);
-// 	int fd3 = open("3char", O_RDONLY);
-// 	int fd4 = open("4char", O_RDONLY);
-// 	int fd5 = -7;
-
-// 	char *line = "start";
-// 	char *line2 = "start";
-// 	char *line3 = "start";
-// 	char *line4 = "start";
-// 	char *line5 = "start";
-
-// 	for (int i = 0; i < 6; i++)
-// 	{
-// 		line = get_next_line(fd);
-// 		line2 = get_next_line(fd2);
-// 		line3 = get_next_line(fd3);
-// 		line4 = get_next_line(fd4);
-// 		line5 = get_next_line(fd5);
-// 		printf("%s\n", line);
-// 		printf("%s\n", line2);
-// 		printf("%s\n", line3);
-// 		printf("%s\n", line4);
-// 		printf("%s\n", line5);
-// 		free(line);
-// 		free(line2);
-// 		free(line3);
-// 		free(line4);
-// 		free(line5);
-// 	}
-// 	close(fd);
-// 	close(fd2);
-// 	close(fd3);
-// 	close(fd4);
-// 	close(fd5);
-//     return 0;
-// }
 
 static char	*free_and_null(char *to_free, char **to_null)
 {
@@ -121,16 +76,22 @@ static t_fd_list	*f_lstnew(int fd)
 	return (new_node);
 }
 
-// void	del_node(t_fd_list *head)
-// {
-// 	t_fd_list	*tmp;
+void	del_node(t_fd_list **head, int check_list)
+{
+	t_fd_list	*tmp;
 
-// 	while (head->next && head->next->ptr != NULL)
-// 		head = head->next;
-// 	tmp = head->next;
-// 	head->next = tmp->next;
-// 	free(tmp);
-// }
+	tmp = *head; //giocare con i doppi puntatori
+	while (*head && check_list)
+	{
+		if ((*head)->ptr != NULL)
+			return ;
+		*head = (*head)->next;
+	}
+	if (tmp)
+		del_node(&(tmp->next), 0);
+	free(tmp); //fare la giusta free
+	tmp = NULL;
+}
 
 char	*get_next_line(int fd)
 {
@@ -147,7 +108,7 @@ char	*get_next_line(int fd)
 	{
 		if (tmp->fd == fd)
 			matching_node = tmp;
-		if (tmp->fd == fd)			
+		if (tmp->fd == fd)
 			break ;
 		tmp = tmp->next;
 	}
@@ -156,6 +117,7 @@ char	*get_next_line(int fd)
 	if (!head || !matching_node)
 		return (NULL);
 	to_return = get_nl(matching_node->fd, &(matching_node->ptr));
-	// del_node(head);
+	if (!to_return)
+		del_node(&head, 1);
 	return (to_return);
 }
