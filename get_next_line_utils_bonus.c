@@ -6,13 +6,11 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:04:12 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 12:04:19 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:52:25 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-
-static void	free_previous(char *ptr);
 
 char	*get_single_line(char *str)
 {
@@ -34,6 +32,13 @@ char	*get_single_line(char *str)
 	}
 	new_str[i - 1] = '\0';
 	return (new_str);
+}
+
+static void	free_previous(char *ptr)
+{
+	while (ptr != NULL && *ptr != 127)
+		(ptr)--;
+	free(ptr);
 }
 
 char	*f_strjoin(char *s1, char *s2)
@@ -61,13 +66,6 @@ char	*f_strjoin(char *s1, char *s2)
 	free((void *)s2);
 	free_previous((char *)s1);
 	return (newstr);
-}
-
-static void	free_previous(char *ptr)
-{
-	while (ptr != NULL && *ptr != 127)
-		(ptr)--;
-	free(ptr);
 }
 
 int	f_sl(char *c)
