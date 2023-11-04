@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:50:28 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 17:31:39 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:49:44 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,21 @@ static t_fd_list	*f_lstnew(int fd)
 	return (new_node);
 }
 
-void	del_node(t_fd_list **head, int check_list)
+void	del_node(t_fd_list *head, t_fd_list **head1, int check_list)
 {
 	t_fd_list	*tmp;
 
-	tmp = *head; //giocare con i doppi puntatori
-	while (*head && check_list)
+	tmp = head; //giocare con i doppi puntatori
+	while (check_list && head)
 	{
-		if ((*head)->ptr != NULL)
+		if (head->ptr)
 			return ;
-		*head = (*head)->next;
+		head = head->next;
 	}
 	if (tmp)
-		del_node(&(tmp->next), 0);
-	free(tmp); //fare la giusta free
-	tmp = NULL;
+		del_node(tmp->next, &((*head1)->next), 0);
+	free(*head1); //fare la giusta free
+	*head1 = NULL;
 }
 
 char	*get_next_line(int fd)
@@ -118,6 +118,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	to_return = get_nl(matching_node->fd, &(matching_node->ptr));
 	if (!to_return)
-		del_node(&head, 1);
+		del_node(head, &head, 1);
 	return (to_return);
 }
