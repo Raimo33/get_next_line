@@ -6,18 +6,11 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:50:28 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/04 14:49:44 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:14:43 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-
-static char	*free_and_null(char *to_free, char **to_null)
-{
-	free(to_free);
-	*to_null = NULL;
-	return (NULL);
-}
 
 static char	*get_nl(int fd, char **ptr)
 {
@@ -44,7 +37,7 @@ static char	*get_nl(int fd, char **ptr)
 		}
 		free(ret);
 	}
-	return (free_and_null(buf, &(*ptr)));
+	return (free_and_null(buf, ptr));
 }
 
 static t_fd_list	*f_lstadd_back(t_fd_list **lst, t_fd_list *new)
@@ -80,7 +73,7 @@ void	del_node(t_fd_list *head, t_fd_list **head1, int check_list)
 {
 	t_fd_list	*tmp;
 
-	tmp = head; //giocare con i doppi puntatori
+	tmp = head;
 	while (check_list && head)
 	{
 		if (head->ptr)
@@ -89,7 +82,7 @@ void	del_node(t_fd_list *head, t_fd_list **head1, int check_list)
 	}
 	if (tmp)
 		del_node(tmp->next, &((*head1)->next), 0);
-	free(*head1); //fare la giusta free
+	free(*head1);
 	*head1 = NULL;
 }
 

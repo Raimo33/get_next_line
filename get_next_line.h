@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:55 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 10:45:10 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:13:46 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 # include <limits.h>
 
 char	*get_next_line(int fd);
-char	*f_strjoin(char *s1, char *s2);
-char	*ft_calloc(size_t nmemb, size_t size);
-int		f_sl(char *c);
 char	*get_single_line(char *str);
-char	*ft_strdup(char *s);
+char	*f_strjoin(char *s1, char *s2);
+int		f_sl(char *c);
+char	*ft_calloc(size_t nmemb, size_t size);
+char	*free_and_null(char *to_free, char **to_null);
 
 #endif

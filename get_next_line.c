@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:08 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/03 15:25:29 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:14:23 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 // #include "get_next_line_utils.c"
 // # define BUFFER_SIZE 10
-
-static char	*free_and_null(char *to_free, char **to_null);
 
 // #include <stdio.h>
 // #include <fcntl.h>
@@ -61,11 +59,4 @@ char	*get_next_line(int fd)
 		free(ret);
 	}
 	return (free_and_null(buf, &ptr));
-}
-
-static char	*free_and_null(char *to_free, char **to_null)
-{
-	free(to_free);
-	*to_null = NULL;
-	return (NULL);
 }
