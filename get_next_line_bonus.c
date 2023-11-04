@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:50:28 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/04 15:14:43 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:19:53 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*get_next_line(int fd)
 	t_fd_list			*matching_node;
 	char				*to_return;
 
-	if (fd < 0 || fd > __FD_SETSIZE)
+	if (fd < 0 || fd > __FD_SETSIZE || BUFFER_SIZE < 1)
 		return (NULL);
 	tmp = head;
 	matching_node = NULL;
