@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:50:28 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/04 17:27:44 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:00:45 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static char	*get_nl(int fd, char **ptr)
 	char		*buf;
 	int			out;
 
-	out = 1;
-	while (out > 0)
+	out = -42;
+	while ((out > 0 && *ptr) || out == -42)
 	{
 		str = ft_calloc(BUFFER_SIZE + 1, 1);
 		if (!str)
 			return (NULL);
 		out = read(fd, str, BUFFER_SIZE);
-		buf = f_strjoin(ptr, &str);
+		buf = f_strjoin(*ptr, str);
 		*ptr = buf;
 		ret = get_single_line(*ptr);
 		if (f_sl(ret) > 0

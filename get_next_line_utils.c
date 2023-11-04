@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/04 17:21:26 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 18:11:13 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,32 @@ char	*get_single_line(char *str)
 	return (new_str);
 }
 
-char	*f_strjoin(char **s1, char **s2)
+char	*f_strjoin(char *s1, char *s2)
 {
 	char	*newstr;
 	int		i;
 	int		s1_len;
 	int		s2_len;
 
-	if (*s1 && **s1 == 127)
-		(*s1)++;
-	s1_len = f_sl(*s1) + 1;
-	s2_len = f_sl(*s2);
+	if (s1 && *s1 == 127)
+		s1++;
+	s1_len = f_sl(s1) + 1;
+	s2_len = f_sl(s2);
 	i = 0;
 	newstr = malloc((s1_len + s2_len + 1));
 	if (newstr)
 		newstr[0] = 127;
-	while (newstr && ++i < s1_len)
-		newstr[i] = (*s1)[i - 1];
+	while (newstr && ++i < s1_len && s1)
+		newstr[i] = s1[i - 1];
 	i = -1;
-	while (newstr && ++i < s2_len)
-		newstr[s1_len + i] = (*s2)[i];
+	while (newstr && ++i < s2_len && s2)
+		newstr[s1_len + i] = s2[i];
 	if (newstr)
 		newstr[s1_len + i] = '\0';
-	free_and_null(*s2, s2);
-	while (*s1 && **s1 != 127)
-		(*s1)--;
-	free_and_null(*s1, s1);
+	free(s2);
+	while (s1 && *s1 != 127)
+		s1--;
+	free(s1);
 	return (newstr);
 }
 
