@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 22:27:37 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/04 15:15:17 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:27:43 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ char	*f_strjoin(char *s1, char *s2)
 	s2_len = f_sl(s2);
 	i = 0;
 	newstr = malloc((s1_len + s2_len + 1));
-	if (newstr != NULL)
+	if (newstr)
 		newstr[0] = 127;
 	while (++i < s1_len)
 		newstr[i] = s1[i - 1];
 	i = -1;
 	while (++i < s2_len)
 		newstr[s1_len + i] = s2[i];
-	if (newstr != NULL)
+	if (newstr)
 		newstr[s1_len + i] = '\0';
 	free((void *)s2);
 	while (s1 && *s1 != 127)
@@ -91,7 +91,7 @@ char	*ft_calloc(size_t nmemb, size_t size)
 		return (NULL);
 	n = nmemb * size;
 	arr = malloc(n);
-	while (arr != NULL && n-- > 0)
+	while (arr && n-- > 0)
 		arr[n] = '\0';
 	return (arr);
 }

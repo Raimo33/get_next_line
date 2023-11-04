@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:04:12 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/04 15:18:42 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:26:09 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*ft_calloc(size_t nmemb, size_t size)
 		return (NULL);
 	n = nmemb * size;
 	arr = malloc(n);
-	while (arr != NULL && n-- > 0)
+	while (arr && n-- > 0)
 		arr[n] = '\0';
 	return (arr);
 }

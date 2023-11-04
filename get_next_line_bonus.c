@@ -6,7 +6,7 @@
 /*   By: craimond <craimond@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 11:50:28 by craimond          #+#    #+#             */
-/*   Updated: 2023/11/04 15:19:53 by craimond         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:39:47 by craimond         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ static t_fd_list	*f_lstadd_back(t_fd_list **lst, t_fd_list *new)
 {
 	t_fd_list	*tmp;
 
-	if (*lst == NULL)
+	if (!(*lst))
 	{
 		*lst = new;
 		return (*lst);
 	}
 	tmp = *lst;
-	while (tmp->next != NULL)
+	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
-	return (tmp->next);
+	return (new);
 }
 
 static t_fd_list	*f_lstnew(int fd)
@@ -61,7 +61,7 @@ static t_fd_list	*f_lstnew(int fd)
 	t_fd_list	*new_node;
 
 	new_node = malloc(sizeof(t_fd_list));
-	if (new_node == NULL)
+	if (!new_node)
 		return (NULL);
 	new_node->fd = fd;
 	new_node->ptr = NULL;
